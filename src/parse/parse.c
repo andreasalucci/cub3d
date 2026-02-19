@@ -5,47 +5,32 @@
 // 	data->rgb = NULL;
 // }
 
-// check_zero_orizontally_after_n()
+// bool check_north_hole(char **map)
 // {
 
 // }
 
-// check_zero_vertically_after_n()
+// bool check_south_hole(char **map)
 // {
 
 // }
 
-// check_zero_orizontally_after_space()
+// bool check_east_hole(char **map)
 // {
 
 // }
 
-// check_zero_vertically_after_space()
+// bool check_west_hole(char **map)
 // {
 
 // }
 
-// check_zero_orizontally_before_n()
+// bool check_player(char **map)
 // {
 
 // }
 
-// check_zero_vertically_before_n()
-// {
-
-// }
-
-// check_zero_orizontally_before_space()
-// {
-
-// }
-
-// check_zero_vertically_before_space()
-// {
-
-// }
-
-// check_zero_vertically_before_end()
+// bool check_map(char **map)
 // {
 
 // }
@@ -124,11 +109,6 @@ char	**create_map_matrix(char **file, int rows_count)
 	return (map_mat);
 }
 
-// check_map()
-// {
-
-// }
-
 char	**read_file(int fd, int rows_count)
 {
 	char	*line;
@@ -140,7 +120,7 @@ char	**read_file(int fd, int rows_count)
 		return (NULL);
 	i = 0;
 	line = get_next_line(fd);
-	while (line)// && i < rows_count)
+	while (line)
 	{
 		file[i] = line;
 		i++;
@@ -161,9 +141,8 @@ int	count_rows(int fd)
 	while (line)
 	{
 		count++;
-		//free(line);
+		free(line);
 		line = get_next_line(fd);
 	}
-	//close(fd);
 	return (count);
 }
