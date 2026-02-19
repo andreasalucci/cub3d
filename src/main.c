@@ -2,9 +2,14 @@
 
 bool	check_argument(int argc, char **argv)
 {
-	if (argc != 2)
+	if (argc < 2)
 	{
 		ft_putstr_fd("Error\nMissing argument for map file (.cub)\n", 2);
+		return (false);
+	}
+	if (argc > 2)
+	{
+		ft_putstr_fd("Error\nToo many arguments\n", 2);
 		return (false);
 	}
 	if (ft_strlen(argv[1]) < 5)
@@ -30,12 +35,12 @@ int	main(int argc, char **argv)
 	if (!g)
 		return (1);
 	if (!check_argument(argc, argv))
-		return (free_game(g), 1);
+		return (free(g), 1);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 	{
 		ft_putstr_fd("Error\nError in file opening\n", 2);
-		return (free_game(g), 1);
+		return (free(g), 1);
 	}
 	rows_count = count_rows(fd);
 	close(fd);
@@ -43,13 +48,26 @@ int	main(int argc, char **argv)
 	if (fd == -1)
 	{
 		ft_putstr_fd("Error\nError in file opening\n", 2);
-		return (free_game(g), 1);
+		return (free(g), 1);
 	}
 	g->file_mat = read_file(fd, rows_count);
 	if (!g->file_mat)
-		return (free_game(g), 1);
+		return (free(g), 1);
 	g->map_mat = create_map_matrix(g->file_mat, rows_count);
 	if (!g->map_mat)
-		return (free_game(g), 1);
-	return (free_game(g), 0);
+		return (free(g), 1);
+
+	int i = 0;
+	while (g->map_mat[i])
+	{
+		int j = 0;
+		while (g->map_mat[i][j] != '\n' && g->map_mat[i][j] != '\0')
+		{
+			write(1, &g->map_mat[i][j], 1);
+			j++;
+		}
+		write(1, "\n", 1);
+		i++;
+	}
+	return (free(g), 0);
 }

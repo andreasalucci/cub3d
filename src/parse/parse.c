@@ -57,7 +57,7 @@ bool	wall_after_only_spaces(char *str)
 	i = 0;
 	while (str[i] == ' ')
 		i++;
-	if (str[i] == '1')
+	if (str[i] && str[i] == '1')
 		return (true);
 	else
 		return (false);
@@ -68,7 +68,7 @@ int	spot_map_in_file(char **file, int rows_count)
 	int		line_i;
 
 	line_i = 0;
-	while (!wall_after_only_spaces(file[line_i]))
+	while (line_i < rows_count && file[line_i] && !wall_after_only_spaces(file[line_i]))
 		line_i++;
 	if (line_i == rows_count)
 	{
@@ -89,7 +89,8 @@ int	count_map_rows(char **file, int rows_count)
 	count = 0;
 	while (file[i])
 	{
-		count++;
+		if (file[i][0] != '\0' && file[i][0] != '\n')
+			count++;
 		i++;
 	}
 	return (count);
@@ -110,10 +111,13 @@ char	**create_map_matrix(char **file, int rows_count)
 		return (NULL);
 	i = spot_map_in_file(file, rows_count);
 	map_i = 0;
-	while (i < rows_count)
+	while (i < rows_count && file[i])
 	{
-		map_mat[map_i] = ft_strdup(file[i]);
-		map_i++;
+		if (file[i][0] != '\0' && file[i][0] != '\n')
+		{
+			map_mat[map_i] = ft_strdup(file[i]);
+			map_i++;
+		}
 		i++;
 	}
 	map_mat[map_i] = NULL;
@@ -136,7 +140,7 @@ char	**read_file(int fd, int rows_count)
 		return (NULL);
 	i = 0;
 	line = get_next_line(fd);
-	while (line)
+	while (line)// && i < rows_count)
 	{
 		file[i] = line;
 		i++;
@@ -151,17 +155,15 @@ int	count_rows(int fd)
 {
 	char	*line;
 	int		count;
-	int		i;
 
-	i = 0;
 	count = 0;
 	line = get_next_line(fd);
 	while (line)
 	{
 		count++;
-		free(line);
+		//free(line);
 		line = get_next_line(fd);
 	}
-	close(fd);
+	//close(fd);
 	return (count);
 }
