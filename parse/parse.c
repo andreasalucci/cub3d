@@ -50,68 +50,110 @@ check_zero_vertically_before_end()
 
 }
 
-int	spot_map_in_file()
+bool	wall_after_only_spaces(char *str)
 {
-	int		fd;
-	char	*line;
+	int i;
+
+	i = 0;
+	while (str[i] == ' ')
+		i++;
+	if (str[i] == '1')
+		return (true);
+	else
+		return (false);
+}
+
+int	spot_map_in_file(char **file, int rows_count)
+{
 	int		line_i;
 
-	fd = open();
-	line = get_next_line(fd)
 	line_i = 0;
-	while (line[0] != )
-	{
-		line = get_next_line(fd);
+	while (!wall_after_only_spaces(file[line_i]))
 		line_i++;
+	if (line_i == rows_count)
+	{
+		ft_putstr_fd("Error\nImpossible to find a map in the file\n", 2);
+		return (-1);
 	}
 	return (line_i);
 }
 
-int	count_map_rows()
+int	count_map_rows(char **file, int rows_count)
 {
-	int		fd;
-	char	*line;
-	int		line_n;
-	int		i;
+	int	i;
+	int	count;
 
-	fd = open();
-	i = 0;
-	while (i < spot_map_in_file())
-		line = get_next_line(fd);
-	line_n = 0;
-	while (line)
+	i = spot_map_in_file(file, rows_count);
+	if (i == -1)
+		return (-1);
+	count = 0;
+	while (file[i])
 	{
-		line = get_next_line(fd);
-		line_n++;
+		count++;
+		i++;
 	}
-	return (line_n);
+	return (count);
 }
 
-char	**create_map_matrix()
+char	**create_map_matrix(char **file, int rows_count)
 {
-	int		fd;
 	char	*line;
 	char	**map_mat;
 	int		i;
+	int		map_i;
+	int		map_rows;
 
-	map_mat = malloc((sizeof (char *)) * count_map_rows());
-	line = get_next_line(fd);
-	map_mat[0] = malloc((sizeof (char)) * ft_strlen(line));
-	i = 1;
-	while (line)
+	map_rows = count_map_rows(file, rows_count);
+	if (map_rows == -1)
+		return (NULL);
+	map_mat = malloc((sizeof(char *)) * map_rows);
+	i = spot_map_in_file(file, rows_count);
+	map_i = 0;
+	while (i < rows_count)
 	{
-		line = get_next_line(fd);
-		map_mat[i] = malloc((sizeof (char)) * ft_strlen(line));
+		map_mat[map_i] = ft_strdup(file[i]);
+		map_i++;
 		i++;
 	}
-	map_mat[i] = NULL;
+	map_mat[map_i] = NULL;
 	return (map_mat);
 }
 
 check_map()
 {
-	
+
 }
 
+char	**read_file(int fd, int rows_count)
+{
+	char	*line;
+	char	**file;
+	int		i;
 
-// Si puo usare get_next_line given that usa una statica?
+	file = malloc(sizeof(char *) * rows_count);
+	i = 0;
+	line = get_next_line(fd);
+	while (line)
+	{
+		file[i] = line;
+		i++;
+		line = get_next_line(fd);
+	}
+	file[i] = NULL;
+	close(fd);
+	return (file);
+}
+
+int	count_rows(int fd)
+{
+	char	*line;
+	int		count;
+	int		i;
+
+	i = 0;
+	line = get_next_line(fd);
+	while (line)
+		count++;
+	close(fd);
+	return (count);
+}

@@ -136,3 +136,5 @@ typedef struct s_data
 	uint32_t		ceiling_color;
 	uint32_t		floor_color;
 }	t_data;
+
+#endif
