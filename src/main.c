@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../cub3d.h"
 
 bool	check_argument(int argc, char **argv)
 {
@@ -29,7 +29,7 @@ int	main(int argc, char **argv)
 	g = ft_calloc(1, sizeof(t_game));
 	if (!g)
 		return (1);
-	if (!check_arument(argc, argv))
+	if (!check_argument(argc, argv))
 		return (free_game(g), 1);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)

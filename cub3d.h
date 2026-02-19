@@ -143,4 +143,12 @@ typedef struct s_game
 	char **map_mat;
 }		t_game;
 
+int	spot_map_in_file(char **file, int rows_count);
+int	count_map_rows(char **file, int rows_count);
+char	**create_map_matrix(char **file, int rows_count);
+char	**read_file(int fd, int rows_count);
+int	count_rows(int fd);
+void	free_matrix(char **mat);
+void	free_game(t_game *g);
+
 #endif

@@ -1,54 +1,54 @@
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
-init_data(t_data *data)
-{
-	data->rgb = NULL;
-}
+// init_data(t_data *data)
+// {
+// 	data->rgb = NULL;
+// }
 
-check_zero_orizontally_after_n()
-{
+// check_zero_orizontally_after_n()
+// {
 
-}
+// }
 
-check_zero_vertically_after_n()
-{
+// check_zero_vertically_after_n()
+// {
 
-}
+// }
 
-check_zero_orizontally_after_space()
-{
+// check_zero_orizontally_after_space()
+// {
 
-}
+// }
 
-check_zero_vertically_after_space()
-{
+// check_zero_vertically_after_space()
+// {
 
-}
+// }
 
-check_zero_orizontally_before_n()
-{
+// check_zero_orizontally_before_n()
+// {
 
-}
+// }
 
-check_zero_vertically_before_n()
-{
+// check_zero_vertically_before_n()
+// {
 
-}
+// }
 
-check_zero_orizontally_before_space()
-{
+// check_zero_orizontally_before_space()
+// {
 
-}
+// }
 
-check_zero_vertically_before_space()
-{
+// check_zero_vertically_before_space()
+// {
 
-}
+// }
 
-check_zero_vertically_before_end()
-{
+// check_zero_vertically_before_end()
+// {
 
-}
+// }
 
 bool	wall_after_only_spaces(char *str)
 {
@@ -97,7 +97,6 @@ int	count_map_rows(char **file, int rows_count)
 
 char	**create_map_matrix(char **file, int rows_count)
 {
-	char	*line;
 	char	**map_mat;
 	int		i;
 	int		map_i;
@@ -107,7 +106,7 @@ char	**create_map_matrix(char **file, int rows_count)
 	if (map_rows == -1)
 		return (NULL);
 	map_mat = malloc((sizeof(char *)) * (map_rows + 1));
-	if (!map_mat);
+	if (!map_mat)
 		return (NULL);
 	i = spot_map_in_file(file, rows_count);
 	map_i = 0;
@@ -121,10 +120,10 @@ char	**create_map_matrix(char **file, int rows_count)
 	return (map_mat);
 }
 
-check_map()
-{
+// check_map()
+// {
 
-}
+// }
 
 char	**read_file(int fd, int rows_count)
 {
