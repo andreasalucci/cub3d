@@ -106,7 +106,9 @@ char	**create_map_matrix(char **file, int rows_count)
 	map_rows = count_map_rows(file, rows_count);
 	if (map_rows == -1)
 		return (NULL);
-	map_mat = malloc((sizeof(char *)) * map_rows);
+	map_mat = malloc((sizeof(char *)) * (map_rows + 1));
+	if (!map_mat);
+		return (NULL);
 	i = spot_map_in_file(file, rows_count);
 	map_i = 0;
 	while (i < rows_count)
@@ -130,7 +132,9 @@ char	**read_file(int fd, int rows_count)
 	char	**file;
 	int		i;
 
-	file = malloc(sizeof(char *) * rows_count);
+	file = malloc(sizeof(char *) * (rows_count + 1));
+	if (!file)
+		return (NULL);
 	i = 0;
 	line = get_next_line(fd);
 	while (line)
@@ -151,9 +155,14 @@ int	count_rows(int fd)
 	int		i;
 
 	i = 0;
+	count = 0;
 	line = get_next_line(fd);
 	while (line)
+	{
 		count++;
+		free(line);
+		line = get_next_line(fd);
+	}
 	close(fd);
 	return (count);
 }

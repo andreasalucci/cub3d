@@ -137,4 +137,10 @@ typedef struct s_data
 	uint32_t		floor_color;
 }	t_data;
 
+typedef struct s_game
+{
+	char **file_mat;
+	char **map_mat;
+}		t_game;
+
 #endif
