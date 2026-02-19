@@ -87,19 +87,30 @@ int	count_map_rows()
 	return (line_n);
 }
 
-create_map_matrix()
+char	**create_map_matrix()
 {
 	int		fd;
 	char	*line;
 	char	**map_mat;
+	int		i;
 
-	map_mat[0] = line;
+	map_mat = malloc((sizeof (char *)) * count_map_rows());
+	line = get_next_line(fd);
+	map_mat[0] = malloc((sizeof (char)) * ft_strlen(line));
+	i = 1;
 	while (line)
 	{
 		line = get_next_line(fd);
-		map_mat[i] = line;
+		map_mat[i] = malloc((sizeof (char)) * ft_strlen(line));
+		i++;
 	}
 	map_mat[i] = NULL;
+	return (map_mat);
+}
+
+check_map()
+{
+	
 }
 
 
